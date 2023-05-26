@@ -5,7 +5,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const CompressionPlugin = require('compression-webpack-plugin')
+// const CompressionPlugin = require('compression-webpack-plugin')
 
 const name = process.env.VUE_APP_TITLE || '若依管理系统' // 网页标题
 
@@ -35,7 +35,7 @@ module.exports = {
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://localhost:8080`,
+        target: `http://localhost:9100`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
@@ -58,16 +58,16 @@ module.exports = {
         '@': resolve('src')
       }
     },
-    plugins: [
-      // http://doc.ruoyi.vip/ruoyi-vue/other/faq.html#使用gzip解压缩静态文件
-      new CompressionPlugin({
-        cache: false,                   // 不启用文件缓存
-        test: /\.(js|css|html)?$/i,     // 压缩文件格式
-        filename: '[path].gz[query]',   // 压缩后的文件名
-        algorithm: 'gzip',              // 使用gzip压缩
-        minRatio: 0.8                   // 压缩率小于1才会压缩
-      })
-    ],
+    // plugins: [
+    //   // http://doc.ruoyi.vip/ruoyi-vue/other/faq.html#使用gzip解压缩静态文件
+    //   new CompressionPlugin({
+    //     cache: false,                   // 不启用文件缓存
+    //     test: /\.(js|css|html)?$/i,     // 压缩文件格式
+    //     filename: '[path].gz[query]',   // 压缩后的文件名
+    //     algorithm: 'gzip',              // 使用gzip压缩
+    //     minRatio: 0.8                   // 压缩率小于1才会压缩
+    //   })
+    // ],
   },
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test
