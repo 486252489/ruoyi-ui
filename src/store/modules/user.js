@@ -7,7 +7,8 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    permissions: []
+    permissions: [],
+    isAdmin: false
   },
 
   mutations: {
@@ -28,7 +29,11 @@ const user = {
     },
     SET_PERMISSIONS: (state, permissions) => {
       state.permissions = permissions
-    }
+    },
+    SET_IS_ADMIN: (state, isAdmin) => {
+      state.isAdmin = isAdmin
+    },
+
   },
 
   actions: {
@@ -66,6 +71,7 @@ const user = {
           }
           commit('SET_NAME', user.userName)
           commit('SET_AVATAR', avatar)
+          commit('SET_IS_ADMIN', res.isAdmin)
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -85,7 +91,7 @@ const user = {
         })
       })
     },
-    
+
     // 退出系统
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {

@@ -157,7 +157,7 @@
 </template>
 
 <script>
-import { listPost, getPost, delPost, addPost, updatePost } from "@/api/system/post";
+import { pagePost, getPost, delPost, addPost, updatePost } from "@/api/system/post";
 
 export default {
   name: "Post",
@@ -184,8 +184,8 @@ export default {
       open: false,
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
+        current: 1,
+        size: 10,
         postCode: undefined,
         postName: undefined,
         status: undefined
@@ -213,8 +213,8 @@ export default {
     /** 查询岗位列表 */
     getList() {
       this.loading = true;
-      listPost(this.queryParams).then(response => {
-        this.postList = response.rows;
+      pagePost(this.queryParams).then(response => {
+        this.postList = response.records;
         this.total = response.total;
         this.loading = false;
       });

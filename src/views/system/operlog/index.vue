@@ -198,7 +198,7 @@
 </template>
 
 <script>
-import { list, delOperlog, cleanOperlog } from "@/api/system/operlog";
+import { page, delOperlog, cleanOperlog } from "@/api/system/operlog";
 
 export default {
   name: "Operlog",
@@ -243,8 +243,8 @@ export default {
     /** 查询登录日志 */
     getList() {
       this.loading = true;
-      list(this.addDateRange(this.queryParams, this.dateRange)).then( response => {
-          this.list = response.rows;
+      page(this.addDateRange(this.queryParams, this.dateRange)).then( response => {
+          this.list = response.records;
           this.total = response.total;
           this.loading = false;
         }

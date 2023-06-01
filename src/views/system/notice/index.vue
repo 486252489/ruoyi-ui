@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import { listNotice, getNotice, delNotice, addNotice, updateNotice } from "@/api/system/notice";
+import { pageNotice, getNotice, delNotice, addNotice, updateNotice } from "@/api/system/notice";
 
 export default {
   name: "Notice",
@@ -223,8 +223,8 @@ export default {
     /** 查询公告列表 */
     getList() {
       this.loading = true;
-      listNotice(this.queryParams).then(response => {
-        this.noticeList = response.rows;
+      pageNotice(this.queryParams).then(response => {
+        this.noticeList = response.records;
         this.total = response.total;
         this.loading = false;
       });

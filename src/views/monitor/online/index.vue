@@ -88,7 +88,7 @@ export default {
     getList() {
       this.loading = true;
       list(this.queryParams).then(response => {
-        this.list = response.rows;
+        this.list = response.records;
         this.total = response.total;
         this.loading = false;
       });

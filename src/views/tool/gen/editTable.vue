@@ -163,7 +163,7 @@ export default {
     if (tableId) {
       // 获取表详细信息
       getGenTable(tableId).then(res => {
-        this.columns = res.data.rows;
+        this.columns = res.data.records;
         this.info = res.data.info;
         this.tables = res.data.tables;
       });

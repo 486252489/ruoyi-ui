@@ -190,7 +190,7 @@
 </template>
 
 <script>
-import { listData, getData, delData, addData, updateData } from "@/api/system/dict/data";
+import { pageData, getData, delData, addData, updateData } from "@/api/system/dict/data";
 import { optionselect as getDictOptionselect, getType } from "@/api/system/dict/type";
 
 export default {
@@ -294,8 +294,8 @@ export default {
     /** 查询字典数据列表 */
     getList() {
       this.loading = true;
-      listData(this.queryParams).then(response => {
-        this.dataList = response.rows;
+      pageData(this.queryParams).then(response => {
+        this.dataList = response.records;
         this.total = response.total;
         this.loading = false;
       });

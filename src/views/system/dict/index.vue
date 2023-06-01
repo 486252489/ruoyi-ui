@@ -188,7 +188,7 @@
 </template>
 
 <script>
-import { listType, getType, delType, addType, updateType, refreshCache } from "@/api/system/dict/type";
+import { pageType, getType, delType, addType, updateType, refreshCache } from "@/api/system/dict/type";
 
 export default {
   name: "Dict",
@@ -243,8 +243,8 @@ export default {
     /** 查询字典类型列表 */
     getList() {
       this.loading = true;
-      listType(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          this.typeList = response.rows;
+      pageType(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+          this.typeList = response.records;
           this.total = response.total;
           this.loading = false;
         }

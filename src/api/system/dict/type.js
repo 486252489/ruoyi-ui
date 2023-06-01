@@ -1,6 +1,15 @@
 import request from '@/utils/request'
 
 // 查询字典类型列表
+export function pageType(query) {
+  return request({
+    url: '/system/dict/type/page',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询字典类型列表
 export function listType(query) {
   return request({
     url: '/system/dict/type/list',

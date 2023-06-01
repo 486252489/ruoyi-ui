@@ -1,6 +1,15 @@
 import request from '@/utils/request'
 
 // 查询操作日志列表
+export function page(query) {
+  return request({
+    url: '/system/operlog/page',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询操作日志列表
 export function list(query) {
   return request({
     url: '/system/operlog/list',

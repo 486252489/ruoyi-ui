@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import { list, delLogininfor, cleanLogininfor, unlockLogininfor } from "@/api/system/logininfor";
+import { page, delLogininfor, cleanLogininfor, unlockLogininfor } from "@/api/system/logininfor";
 
 export default {
   name: "Logininfor",
@@ -171,8 +171,8 @@ export default {
     /** 查询登录日志列表 */
     getList() {
       this.loading = true;
-      list(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          this.list = response.rows;
+      page(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+          this.list = response.records;
           this.total = response.total;
           this.loading = false;
         }

@@ -1,6 +1,15 @@
 import request from '@/utils/request'
 
 // 查询登录日志列表
+export function page(query) {
+  return request({
+    url: '/system/logininfor/page',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询登录日志列表
 export function list(query) {
   return request({
     url: '/system/logininfor/list',
