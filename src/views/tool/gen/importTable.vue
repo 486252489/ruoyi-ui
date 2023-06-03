@@ -1,7 +1,12 @@
 <template>
   <!-- 导入表 -->
-  <el-dialog title="导入表" :visible.sync="visible" width="800px" top="5vh" append-to-body>
+  <el-dialog title="导入表" :visible.sync="visible" width="80%" top="5vh" append-to-body>
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true">
+      <el-form-item label="库" prop="tableSchema">
+        <el-select v-model="queryParams.tableSchema" placeholder="数据库" clearable @change="handleQuery">
+          <el-option v-for="schema in schemaList" :key="schema.tableSchema" :label="schema.tableSchema" :value="schema.tableSchema"/>
+        </el-select>
+      </el-form-item>
       <el-form-item label="表名称" prop="tableName">
         <el-input
           v-model="queryParams.tableName"
@@ -27,6 +32,7 @@
       <el-table @row-click="clickRow" ref="table" :data="dbTableList" @selection-change="handleSelectionChange" height="260px">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="tableName" label="表名称" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column prop="tableSchema" label="库" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column prop="tableComment" label="表描述" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column prop="createTime" label="创建时间"></el-table-column>
         <el-table-column prop="updateTime" label="更新时间"></el-table-column>
@@ -34,8 +40,8 @@
       <pagination
         v-show="total>0"
         :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
+        :page.sync="queryParams.current"
+        :limit.sync="queryParams.size"
         @pagination="getList"
       />
     </el-row>
@@ -47,7 +53,7 @@
 </template>
 
 <script>
-import { listDbTable, importTable } from "@/api/tool/gen";
+import { listDbTable, importTable, listDbSchema } from "@/api/tool/gen";
 export default {
   data() {
     return {
@@ -61,17 +67,20 @@ export default {
       dbTableList: [],
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
+        current: 1,
+        size: 10,
+        tableSchema: undefined,
         tableName: undefined,
         tableComment: undefined
-      }
+      },
+      schemaList: []
     };
   },
   methods: {
     // 显示弹框
     show() {
       this.getList();
+      this.getSchemaList();
       this.visible = true;
     },
     clickRow(row) {
@@ -92,7 +101,7 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
+      this.queryParams.current = 1;
       this.getList();
     },
     /** 重置按钮操作 */
@@ -114,7 +123,13 @@ export default {
           this.$emit("ok");
         }
       });
-    }
+    },
+    /** 查询库集合 */
+    getSchemaList() {
+      listDbSchema().then(res => {
+        this.schemaList = res.data
+      })
+    },
   }
 };
 </script>

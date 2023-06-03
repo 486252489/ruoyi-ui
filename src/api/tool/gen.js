@@ -9,6 +9,14 @@ export function listTable(query) {
   })
 }
 // 查询db数据库列表
+export function listDbSchema(query) {
+  return request({
+    url: '/code/gen/db/schemaList',
+    method: 'get',
+    params: query
+  })
+}
+// 查询db数据库表列表
 export function listDbTable(query) {
   return request({
     url: '/code/gen/db/list',
